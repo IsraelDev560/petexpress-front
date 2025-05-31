@@ -1,8 +1,8 @@
 import { AuthSection } from '@/components/AuthForm';
 import { FieldValues, Path, UseFormReturn } from 'react-hook-form';
+import { Feedback } from './Feedback';
 
 export interface FieldConfig<T> {
-  
   name: Path<T>;
   type: string,
   label: string;
@@ -14,6 +14,7 @@ export interface FormProps<T extends FieldValues> {
   form: UseFormReturn<T>;
   onSubmit: (values: T) => void;
   fields: FieldConfig<T>[];
+  feedback: Feedback,
   section: 'register' | 'login',
   setSection: React.Dispatch<React.SetStateAction<AuthSection>>;
 }
