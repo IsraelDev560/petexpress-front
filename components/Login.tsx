@@ -6,6 +6,10 @@ import { loginSchema } from '@/schemas/formSchema';
 import { AuthSection } from "./AuthForm";
 import { FormComponent } from './FormComponent';
 import { FieldConfig } from '@/types/AuthFormValues';
+import { useState } from 'react';
+import { apiClient } from '@/lib/apiClient';
+import { Feedback } from '@/types/Feedback';
+import { useRouter } from 'next/navigation';
 
 interface SectionProps {
     section: 'register' | 'login',
@@ -14,21 +18,49 @@ interface SectionProps {
 
 export type LoginFormValues = z.infer<typeof loginSchema>;
 export const loginFields: FieldConfig<LoginFormValues>[] = [
-    { name: 'email', label: 'E-mail', type: 'email', description: 'Digite seu e-mail' },
-    { name: 'password', label: 'Senha', type: 'password', description: 'Mínimo 6 caracteres' },
+    { name: 'username', label: 'Username', type: 'text', description: 'Digite seu username' },
+    { name: 'password', label: 'Senha', type: 'password', description: 'Digite sua senha' },
 ];
 
 export function Login({ section, setSection }: SectionProps) {
     const form = useForm<z.infer<typeof loginSchema>>({
         resolver: zodResolver(loginSchema),
         defaultValues: {
-            email: '',
+            username: '',
             password: '',
         }
     })
+    const router = useRouter();
 
-    function onSubmit(values: z.infer<typeof loginSchema>) {
-        console.log(values)
+    const [feedback, setFeedback] = useState<Feedback>({ message: '', type: '' })
+
+    async function onSubmit(values: z.infer<typeof loginSchema>) {
+        try {
+            const { res, data } = await apiClient("/api/auth/login", {
+                method: 'POST',
+                body: values
+            }) as { res: Response, data: { token: string, message?: string, timeStamp: string, status: number } }
+
+            if (!res.ok) {
+                setFeedback({
+                    message: data.message || "Erro ao fazer login",
+                    type: 'error'
+                });
+                return;
+            }
+
+            setFeedback({
+                message: "Login realizado com sucesso!",
+                type: 'success'
+            });
+            router.push('/dashboard')
+        } catch (e: any) {
+            setFeedback({
+                message: e?.message || "Erro inesperado.",
+                type: 'error'
+            });
+            console.log("Erro no login:", e);
+        }
     }
     return (
         <FormComponent
@@ -37,6 +69,7 @@ export function Login({ section, setSection }: SectionProps) {
             form={form}
             fields={loginFields}
             section={section}
+            feedback={feedback}
             setSection={setSection}
         />
     )

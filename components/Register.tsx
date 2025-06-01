@@ -16,8 +16,8 @@ export type RegisterFormValues = z.infer<typeof registerSchema>;
 
 export const registerFields: FieldConfig<RegisterFormValues>[] = [
     { name: 'username', label: 'Username', type: 'text', description: 'Digite seu nome' },
-    { name: 'email', label: 'E-mail', type: 'email', description: 'Digite seu e-mail' },
     { name: 'password', label: 'Senha', type: 'password', description: 'Mínimo 6 caracteres' },
+    { name: 'role', label: 'Cargo', type: 'text', description: 'Digite o cargo do usuário' },
 ];
 
 
@@ -26,8 +26,8 @@ export function Register({ section, setSection }: SectionProps) {
         resolver: zodResolver(registerSchema),
         defaultValues: {
             username: '',
-            email: '',
             password: '',
+            role: '',
         }
     })
 

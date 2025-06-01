@@ -10,13 +10,14 @@ import {
 import { Input } from "@/components/ui/input"
 import { FormProps } from "@/types/AuthFormValues"
 import { FieldValues } from "react-hook-form"
+import FeedbackComponent from "./FeedbackComponent"
 
-export function FormComponent<T extends FieldValues>({ title, onSubmit, form, section, setSection, fields }: FormProps<T>) {
+export function FormComponent<T extends FieldValues>({ title, onSubmit, form, section, setSection, feedback, fields }: FormProps<T>) {
     return (
-        <div className='border p-4 rounded-lg'>
+        <div className='border p-6 rounded-lg'>
             <Form {...form}>
                 <h2 className="text-xl font-bold pb-4">{title}</h2>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 flex flex-col">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 flex flex-col">
                     {fields.map((field) => (
                         <FormField
                             key={field.name}
@@ -26,17 +27,15 @@ export function FormComponent<T extends FieldValues>({ title, onSubmit, form, se
                                 <FormItem>
                                     <FormLabel>{field.label}</FormLabel>
                                     <FormControl>
-                                        <Input placeholder={`${field.description}`} {...field} />
+                                        <Input type={field.type} placeholder={`${field.description}`} {...controller} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
                             )}
                         />
                     ))}
-                    {section === 'login' ? (
-                        <button className='text-sm cursor-pointer underline hover:text-blue-800' onClick={() => setSection("register")}>Não tem uma conta? Registe-se</button>
-                    ) : <button className='text-sm cursor-pointer underline hover:text-blue-800' onClick={() => setSection("login")}>Já possui uma conta? Login</button>}
-                    <Button className="cursor-pointer" type="submit">{section === 'login' ? 'ENTRAR' : 'CADASTRE-SE'}</Button>
+                    {feedback && <FeedbackComponent message={feedback.message} type={feedback.type} />}
+                    <Button className="cursor-pointer" type="submit">{'ENTRAR'}</Button>
                 </form>
             </Form>
         </div>
