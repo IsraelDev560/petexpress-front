@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-
+@plugin "tailwind-scrollbar-hide";
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
@@ -112,10 +112,26 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+@keyframes neonPulse {
+  0%, 100% {
+    box-shadow: 0 0 6px 2px rgba(59, 130, 246, 0.6); /* azul Tailwind 500 */
+  }
+  50% {
+    box-shadow: 0 0 10px 4px rgba(59, 130, 246, 1);
+  }
+}
+
+@layer utilities {
+  .animate-neon-border {
+    animation: neonPulse 1.5s ease-in-out infinite;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }

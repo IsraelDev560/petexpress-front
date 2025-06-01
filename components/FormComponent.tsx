@@ -11,8 +11,9 @@ import { Input } from "@/components/ui/input"
 import { FormProps } from "@/types/AuthFormValues"
 import { FieldValues } from "react-hook-form"
 import FeedbackComponent from "./FeedbackComponent"
+import MiniLoading from "./utils/MiniLoading"
 
-export function FormComponent<T extends FieldValues>({ title, onSubmit, form, section, setSection, feedback, fields }: FormProps<T>) {
+export function FormComponent<T extends FieldValues>({ title, onSubmit, form, loading, feedback, fields }: FormProps<T>) {
     return (
         <div className='border p-6 rounded-lg'>
             <Form {...form}>
@@ -35,7 +36,7 @@ export function FormComponent<T extends FieldValues>({ title, onSubmit, form, se
                         />
                     ))}
                     {feedback && <FeedbackComponent message={feedback.message} type={feedback.type} />}
-                    <Button className="cursor-pointer" type="submit">{'ENTRAR'}</Button>
+                    {loading ? <MiniLoading /> : <Button className="cursor-pointer" type="submit">{'ENTRAR'}</Button>}
                 </form>
             </Form>
         </div>

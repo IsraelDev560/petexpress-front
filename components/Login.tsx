@@ -3,7 +3,6 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema } from '@/schemas/formSchema';
-import { AuthSection } from "./AuthForm";
 import { FormComponent } from './FormComponent';
 import { FieldConfig } from '@/types/AuthFormValues';
 import { useState } from 'react';
@@ -11,18 +10,13 @@ import { apiClient } from '@/lib/apiClient';
 import { Feedback } from '@/types/Feedback';
 import { useRouter } from 'next/navigation';
 
-interface SectionProps {
-    section: 'register' | 'login',
-    setSection: React.Dispatch<React.SetStateAction<AuthSection>>;
-}
-
 export type LoginFormValues = z.infer<typeof loginSchema>;
 export const loginFields: FieldConfig<LoginFormValues>[] = [
     { name: 'username', label: 'Username', type: 'text', description: 'Digite seu username' },
     { name: 'password', label: 'Senha', type: 'password', description: 'Digite sua senha' },
 ];
 
-export function Login({ section, setSection }: SectionProps) {
+export function Login() {
     const form = useForm<z.infer<typeof loginSchema>>({
         resolver: zodResolver(loginSchema),
         defaultValues: {
@@ -31,11 +25,12 @@ export function Login({ section, setSection }: SectionProps) {
         }
     })
     const router = useRouter();
-
+    const [loading, setLoading] = useState<boolean>(false);
     const [feedback, setFeedback] = useState<Feedback>({ message: '', type: '' })
 
     async function onSubmit(values: z.infer<typeof loginSchema>) {
         try {
+            setLoading(true);
             const { res, data } = await apiClient("/api/auth/login", {
                 method: 'POST',
                 body: values
@@ -60,6 +55,8 @@ export function Login({ section, setSection }: SectionProps) {
                 type: 'error'
             });
             console.log("Erro no login:", e);
+        } finally{
+            setLoading(false);
         }
     }
     return (
@@ -68,9 +65,8 @@ export function Login({ section, setSection }: SectionProps) {
             onSubmit={onSubmit}
             form={form}
             fields={loginFields}
-            section={section}
             feedback={feedback}
-            setSection={setSection}
+            loading={loading}
         />
     )
 }
