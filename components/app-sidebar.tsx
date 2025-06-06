@@ -13,7 +13,7 @@ import {
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import Link from "next/link"
-import { logout } from "@/service/AuthService"
+import { logout } from "@/service/client/AuthService"
 
 const items = [
     {
