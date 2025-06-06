@@ -1,19 +1,16 @@
 import { apiClient } from "@/lib/apiClient";
 import { API_URL } from "@/lib/ApiUrl";
-import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
-export async function POST(req: Request, resNext: Response) {
+export async function GET(req: Request, resNext: Response) {
     const cookiesStore = await cookies();
     const token = cookiesStore.get('token')?.value;
-    const body = await req.json();
     try {
         const { res, data } = await apiClient(`${API_URL}/animals`, {
-            method: 'POST',
+            method: 'GET',
             token,
-            body
         }) as { res: Response, data: { token: string, message?: string, timeStamp: string, status: number } }
-
+        console.log(res, data)
         if (!res.ok) {
             return Response.json({
                 success: false,
@@ -23,12 +20,12 @@ export async function POST(req: Request, resNext: Response) {
                 status: res.status
             });
         }
-        revalidateTag('animals')
+
         return Response.json(data, {
             status: res.status
         })
     } catch (e: any) {
-        console.log("Ocorreu um erro ao tentar criar um animal:", e);
+        console.log("Ocorreu um erro ao tentar obter todos os animais:", e);
         return Response.json({
             success: false,
             message: e
