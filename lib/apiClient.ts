@@ -1,3 +1,5 @@
+import { NEXT_PUBLIC_API_FRONT } from "./ApiUrl";
+
 interface ApiClientOptions {
     method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
     token?: string;
@@ -51,6 +53,13 @@ export const apiClient = async <T>(url: string, options: ApiClientOptions = {}):
             };
         }
 
+        if(res.status === 401) {
+            console.log("Unathorized user.")
+            await fetch(`${NEXT_PUBLIC_API_FRONT}/api/auth/logout`, {
+                method: 'POST'
+            })
+        }
+
         const text = await res.text();
 
         let data: T;
@@ -59,7 +68,6 @@ export const apiClient = async <T>(url: string, options: ApiClientOptions = {}):
         } catch (e) {
             data = text as T;
         }
-
 
         return { res, data };
     } catch (err) {
