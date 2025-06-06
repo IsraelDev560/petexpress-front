@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { FormProps } from "@/types/AuthFormValues"
 import { FieldValues } from "react-hook-form"
-import FeedbackComponent from "./FeedbackComponent"
+import FeedbackComponent from "./utils/FeedbackComponent"
 import MiniLoading from "./utils/MiniLoading"
 
 export function FormComponent<T extends FieldValues>({ title, onSubmit, form, loading, feedback, fields }: FormProps<T>) {
