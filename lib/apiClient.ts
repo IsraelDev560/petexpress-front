@@ -5,6 +5,7 @@ interface ApiClientOptions {
     token?: string;
     body?: Record<string, any>;
     revalidate?: number;
+    tags?: string[];
 }
 
 interface ApiResponse<T> {
@@ -18,6 +19,7 @@ export const apiClient = async <T>(url: string, options: ApiClientOptions = {}):
         token,
         body,
         revalidate = 0,
+        tags = []
     } = options;
     const headers: Record<string, string> = {};
 
@@ -25,10 +27,10 @@ export const apiClient = async <T>(url: string, options: ApiClientOptions = {}):
         headers['Authorization'] = `Bearer ${token}`;
     }
 
-    let nextOptions: { next?: { revalidate: number } } = {};;
+    let nextOptions: { next?: { revalidate: number, tags: string[] } } = {};;
 
     if (revalidate) {
-        nextOptions = { next: { revalidate } };
+        nextOptions = { next: { revalidate, tags } };
     }
 
     const fetchOptions: RequestInit = {
