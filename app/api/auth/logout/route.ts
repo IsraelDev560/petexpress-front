@@ -1,7 +1,15 @@
-import { apiClient } from "@/lib/apiClient";
-import { API_URL } from "@/lib/ApiUrl";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+
+export async function GET() {
+    const res = NextResponse.redirect(new URL("/", process.env.NEXT_PUBLIC_API_FRONT));
+    res.cookies.set("token", "", {
+        maxAge: 0,
+        path: "/",
+    });
+
+    return res;
+}
 
 export async function POST(req: Request) {
     const cookiesStore = await cookies();
@@ -19,4 +27,5 @@ export async function POST(req: Request) {
             message: e
         }, { status: 500 })
     }
+
 }

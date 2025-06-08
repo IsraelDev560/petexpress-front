@@ -105,7 +105,7 @@ export function DataTable<TData extends Record<string, any>, TValue>({
     return (
         <main>
             <div className="flex items-center gap-4 py-4">
-                {user.role === 'ADMIN' && (
+                {user?.role === 'ADMIN' && (
                     <AddForms<TData>
                         title={title}
                         add={add}
@@ -120,7 +120,7 @@ export function DataTable<TData extends Record<string, any>, TValue>({
                 )}
                 <Input
                     placeholder={`Pesquisar ${title}...`}
-                    value={(table.getColumn("global")?.getFilterValue() as string) ?? ''}
+                    value={(table?.getColumn("global")?.getFilterValue() as string) ?? ''}
                     onChange={(e) => table.getColumn("global")?.setFilterValue(e.target.value)}
                     className="max-w-sm"
                 />
