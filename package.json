@@ -1,6 +1,6 @@
 {
   "name": "unimar-front",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
@@ -21,8 +21,6 @@
     "@tanstack/react-table": "^8.21.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "commit-gen": "link:../../../../../.local/share/pnpm/global/5/node_modules/commit-gen",
-    "commit-gen-en-op": "link:../../../../../.local/share/pnpm/global/5/node_modules/commit-gen-en-op",
     "dotenv": "^16.5.0",
     "lucide-react": "^0.510.0",
     "next": "15.3.2",
