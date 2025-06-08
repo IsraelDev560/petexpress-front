@@ -1,59 +1,59 @@
 import { apiClient } from "@/lib/apiClient";
-import { Animal } from "@/types/Animal";
 import { ApiResponse } from "@/types/ApiResponse";
+import { User } from "@/types/User";
 
-const API = '/api/animals';
+const API = '/api/users';
 
-export async function getAnimalsClient(): Promise<ApiResponse<Animal[]>> {
+export async function getUsersClient(): Promise<ApiResponse<User[]>> {
   try {
-    const { res, data } = await apiClient('/api/animals/all', { method: 'GET' });
+    const { res, data } = await apiClient(`${API}/all`, { method: 'GET' });
 
     return {
       success: true,
-      data: res.ok ? (data as Animal[]) : [],
       status: res.status,
+      data: res.ok ? (data as User[]) : [],
     };
   } catch (e) {
-    console.error("Erro ao listar animais:", e);
+    console.error("Erro ao listar users:", e);
     return {
       success: false,
       status: 500,
       data: {
-        message: "Erro ao listar animais.",
+        message: "Erro ao listar users.",
         status: 500,
         timeStamp: new Date().toISOString(),
-      },
+      }
     };
   }
 }
 
-export async function addAnimalsClient(dataAnimal: Animal): Promise<ApiResponse<Animal>> {
+export async function addUsersClient(dataUser: User): Promise<ApiResponse<User>> {
   try {
     const { res, data } = await apiClient(API, {
       method: 'POST',
-      body: dataAnimal,
+      body: dataUser,
     });
 
     return {
       success: true,
-      data: data as Animal,
       status: res.status,
+      data: data as User,
     };
   } catch (e) {
-    console.error("Erro ao adicionar animal:", e);
+    console.error("Erro ao adicionar User:", e);
     return {
       success: false,
       status: 500,
       data: {
-        message: "Erro ao adicionar um animal.",
+        message: "Erro ao adicionar User.",
         status: 500,
         timeStamp: new Date().toISOString(),
-      },
+      }
     };
   }
 }
 
-export async function updateAnimalClient(id: string, item: Animal): Promise<ApiResponse<Animal>> {
+export async function updateUserClient(id: string, item: User): Promise<ApiResponse<User>> {
   try {
     const { res, data } = await apiClient(`${API}/${id}`, {
       method: 'PATCH',
@@ -62,24 +62,24 @@ export async function updateAnimalClient(id: string, item: Animal): Promise<ApiR
 
     return {
       success: true,
-      data: data as Animal,
       status: res.status,
+      data: data as User,
     };
   } catch (e) {
-    console.error("Erro ao atualizar animal:", e);
+    console.error("Erro ao atualizar User:", e);
     return {
       success: false,
       status: 500,
       data: {
-        message: "Erro ao atualizar um animal.",
+        message: "Erro ao atualizar User.",
         status: 500,
         timeStamp: new Date().toISOString(),
-      },
+      }
     };
   }
 }
 
-export async function removeAnimalClient(id: string): Promise<ApiResponse<null>> {
+export async function removeUserClient(id: string): Promise<ApiResponse<null>> {
   try {
     const { res } = await apiClient(`${API}/${id}`, {
       method: 'DELETE',
@@ -87,24 +87,24 @@ export async function removeAnimalClient(id: string): Promise<ApiResponse<null>>
 
     return {
       success: true,
-      data: null,
       status: res.status,
+      data: null,
     };
   } catch (e) {
-    console.error("Erro ao remover animal:", e);
+    console.error("Erro ao remover User:", e);
     return {
       success: false,
       status: 500,
       data: {
+        message: "Erro ao remover User.",
         status: 500,
-        message: "Erro ao remover animal.",
         timeStamp: new Date().toISOString(),
       }
     };
   }
 }
 
-export async function searchAnimalByIdClient(id: string): Promise<ApiResponse<Animal | null>> {
+export async function searchUserByIdClient(id: string): Promise<ApiResponse<User | null>> {
   try {
     const { res, data } = await apiClient(`${API}/${id}`, {
       method: 'GET',
@@ -112,20 +112,19 @@ export async function searchAnimalByIdClient(id: string): Promise<ApiResponse<An
 
     return {
       success: true,
-      data: res.ok ? (data as Animal) : null,
       status: res.status,
+      data: res.ok ? (data as User) : null,
     };
   } catch (e) {
-    console.error("Erro ao buscar animal por ID:", e);
+    console.error("Erro ao buscar User por ID:", e);
     return {
       success: false,
       status: 500,
       data: {
+        message: "Erro ao buscar User por ID.",
         status: 500,
         timeStamp: new Date().toISOString(),
-        message: "Erro ao buscar animal por ID.",
-      },
+      }
     };
   }
 }
-

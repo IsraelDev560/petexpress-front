@@ -1,59 +1,59 @@
 import { apiClient } from "@/lib/apiClient";
-import { Animal } from "@/types/Animal";
 import { ApiResponse } from "@/types/ApiResponse";
+import { TaskType } from "@/types/Task-Type";
 
-const API = '/api/animals';
+const API = '/api/tasks-type';
 
-export async function getAnimalsClient(): Promise<ApiResponse<Animal[]>> {
+export async function getTasksTypesClient(): Promise<ApiResponse<TaskType[]>> {
   try {
-    const { res, data } = await apiClient('/api/animals/all', { method: 'GET' });
+    const { res, data } = await apiClient(`${API}/all`, { method: 'GET' });
 
     return {
       success: true,
-      data: res.ok ? (data as Animal[]) : [],
       status: res.status,
+      data: res.ok ? (data as TaskType[]) : [],
     };
   } catch (e) {
-    console.error("Erro ao listar animais:", e);
+    console.error("Erro ao listar TaskType:", e);
     return {
       success: false,
       status: 500,
       data: {
-        message: "Erro ao listar animais.",
+        message: "Erro ao listar TaskType.",
         status: 500,
         timeStamp: new Date().toISOString(),
-      },
+      }
     };
   }
 }
 
-export async function addAnimalsClient(dataAnimal: Animal): Promise<ApiResponse<Animal>> {
+export async function addTaskTypesClient(dataTaskType: TaskType): Promise<ApiResponse<TaskType>> {
   try {
     const { res, data } = await apiClient(API, {
       method: 'POST',
-      body: dataAnimal,
+      body: dataTaskType,
     });
 
     return {
       success: true,
-      data: data as Animal,
       status: res.status,
+      data: data as TaskType,
     };
   } catch (e) {
-    console.error("Erro ao adicionar animal:", e);
+    console.error("Erro ao adicionar TaskType:", e);
     return {
       success: false,
       status: 500,
       data: {
-        message: "Erro ao adicionar um animal.",
+        message: "Erro ao adicionar TaskType.",
         status: 500,
         timeStamp: new Date().toISOString(),
-      },
+      }
     };
   }
 }
 
-export async function updateAnimalClient(id: string, item: Animal): Promise<ApiResponse<Animal>> {
+export async function updateTaskTypeClient(id: string, item: TaskType): Promise<ApiResponse<TaskType>> {
   try {
     const { res, data } = await apiClient(`${API}/${id}`, {
       method: 'PATCH',
@@ -62,24 +62,24 @@ export async function updateAnimalClient(id: string, item: Animal): Promise<ApiR
 
     return {
       success: true,
-      data: data as Animal,
       status: res.status,
+      data: data as TaskType,
     };
   } catch (e) {
-    console.error("Erro ao atualizar animal:", e);
+    console.error("Erro ao atualizar TaskType:", e);
     return {
       success: false,
       status: 500,
       data: {
-        message: "Erro ao atualizar um animal.",
+        message: "Erro ao atualizar TaskType.",
         status: 500,
         timeStamp: new Date().toISOString(),
-      },
+      }
     };
   }
 }
 
-export async function removeAnimalClient(id: string): Promise<ApiResponse<null>> {
+export async function removeTaskTypeClient(id: string): Promise<ApiResponse<null>> {
   try {
     const { res } = await apiClient(`${API}/${id}`, {
       method: 'DELETE',
@@ -87,24 +87,24 @@ export async function removeAnimalClient(id: string): Promise<ApiResponse<null>>
 
     return {
       success: true,
-      data: null,
       status: res.status,
+      data: null,
     };
   } catch (e) {
-    console.error("Erro ao remover animal:", e);
+    console.error("Erro ao remover TaskType:", e);
     return {
       success: false,
       status: 500,
       data: {
+        message: "Erro ao remover TaskType.",
         status: 500,
-        message: "Erro ao remover animal.",
         timeStamp: new Date().toISOString(),
       }
     };
   }
 }
 
-export async function searchAnimalByIdClient(id: string): Promise<ApiResponse<Animal | null>> {
+export async function searchTaskTypeByIdClient(id: string): Promise<ApiResponse<TaskType | null>> {
   try {
     const { res, data } = await apiClient(`${API}/${id}`, {
       method: 'GET',
@@ -112,20 +112,19 @@ export async function searchAnimalByIdClient(id: string): Promise<ApiResponse<An
 
     return {
       success: true,
-      data: res.ok ? (data as Animal) : null,
       status: res.status,
+      data: res.ok ? (data as TaskType) : null,
     };
   } catch (e) {
-    console.error("Erro ao buscar animal por ID:", e);
+    console.error("Erro ao buscar TaskType por ID:", e);
     return {
       success: false,
       status: 500,
       data: {
+        message: "Erro ao buscar TaskType por ID.",
         status: 500,
         timeStamp: new Date().toISOString(),
-        message: "Erro ao buscar animal por ID.",
-      },
+      }
     };
   }
 }
-
