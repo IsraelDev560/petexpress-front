@@ -12,12 +12,16 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { DataTableColumnHeader } from "./DataTableColumnHeader";
 import { ApiResponse } from "@/types/ApiResponse";
+import { Dispatch, SetStateAction } from "react";
+import { DialogState } from "../List";
 
 export function generateColumns<T extends Record<string, any>>(
     data: T[],
+    title: string,
     onReload: () => void,
     remove: (id: string) => Promise<ApiResponse<null>>,
-    update: (id: string, item: T) => Promise<ApiResponse<T>>
+    setIsDialogOpen: Dispatch<SetStateAction<DialogState>>,
+    setEdit: Dispatch<SetStateAction<string | null>>,
 ): ColumnDef<T>[] {
 
     const actionColumn: ColumnDef<T> = {
@@ -42,19 +46,38 @@ export function generateColumns<T extends Record<string, any>>(
                         <DropdownMenuSeparator />
                         <DropdownMenuItem onClick={() => {
                             remove(String(item.id))
-                            setTimeout(() => onReload(), 500);
+                            setTimeout(() => onReload(), 200);
                         }}>
                             Delete
                         </DropdownMenuItem>
 
-                        <DropdownMenuItem onClick={() => update(String(item.id), item)}>
+                        <DropdownMenuItem onClick={() => {
+                            setIsDialogOpen({ open: true, type: mapTitleToType(title), });
+                            setEdit(String(item.id))
+                        }}>
                             Update
                         </DropdownMenuItem>
                     </DropdownMenuContent>
-                </DropdownMenu>
+                </DropdownMenu >
             );
         }
     };
+
+    const globalColumn: ColumnDef<T> = {
+        id: "global",
+        accessorFn: row => row, 
+        filterFn: (row, _columnId, value) => {
+            return Object.entries(row.original).some(([key, val]) => {
+                if (["select", "actions"].includes(key)) return false;
+                return String(val).toLowerCase().includes(String(value).toLowerCase());
+            });
+        },
+        header: () => null,
+        cell: () => null,
+        enableColumnFilter: true,
+        enableSorting: false,
+    };
+
 
     const selectColumn: ColumnDef<T> = {
         id: "select",
@@ -82,11 +105,12 @@ export function generateColumns<T extends Record<string, any>>(
     if (!data.length) return [];
 
     return [
+        globalColumn,
         selectColumn,
         ...Object.keys(data[0]).map((key) => {
-            if (key === 'name') {
+            if (key === 'name' || key === 'username') {
                 return {
-                    accessorKey: key as keyof T,
+                    accessorKey: key,
                     header: ({ column }: { column: Column<T> }) => (
                         <DataTableColumnHeader column={column} title="Name" />
                     )
@@ -101,3 +125,13 @@ export function generateColumns<T extends Record<string, any>>(
             }
         }), actionColumn] as ColumnDef<T>[]
 }
+
+export const mapTitleToType = (title: string): DialogState["type"] => {
+    switch (title) {
+        case "Users": return "users";
+        case "Animals": return "animals";
+        case "Tasks": return "tasks";
+        case "Tasks-Types": return "tasks-types";
+        default: return undefined;
+    }
+};

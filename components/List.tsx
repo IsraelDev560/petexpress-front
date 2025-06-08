@@ -1,9 +1,9 @@
 'use client'
 
-import { DataTable } from '@/app/dashboard/DataTable';
+import { DataTable } from '@/components/table/DataTable';
 import { generateColumns } from './table/columns';
 import { ApiResponse } from '@/types/ApiResponse';
-
+import { useState } from 'react';
 export interface ListProps<T> {
   title: string;
   add: (item: T) => Promise<ApiResponse<T>>;
@@ -13,6 +13,11 @@ export interface ListProps<T> {
   setData: (data: T[]) => void;
   searchById: (id: string) => Promise<ApiResponse<T | null>>;
   update: (id: string, item: T) => Promise<ApiResponse<T>>;
+}
+
+export type DialogState = {
+  open: boolean;
+  type?: "tasks" | "users" | "animals" | 'tasks-types' | 'auth'; 
 }
 
 export default function List<T extends Record<string, any>>({
@@ -25,25 +30,39 @@ export default function List<T extends Record<string, any>>({
   searchById,
   update,
 }: ListProps<T>) {
-
+  const [edit, setEdit] = useState<string | null>('')
+  const [isDialogOpen, setIsDialogOpen] = useState<DialogState>({ open: false, type: undefined });
   const onReload = async () => {
-        try {
-            const res = await get();
-            if ("data" in res && Array.isArray(res.data)) {
-                setData(res.data);
-            } else {
-                setData([]);
-            }
-        } catch (e) {
-            console.error("Erro ao recarregar:", e);
-        }
-    };
+    try {
+      const res = await get();
+      if ("data" in res && Array.isArray(res.data)) {
+        setData(res.data);
+      } else {
+        setData([]);
+      }
+    } catch (e) {
+      console.error("Erro ao recarregar:", e);
+    }
+  };
 
-  const colums = generateColumns(data, onReload, remove, update);
+  const colums = generateColumns(data, title, onReload, remove, setIsDialogOpen, setEdit);
 
   return (
     <div className="w-full max-h-[43rem] rounded-md overflow-auto scrollbar-hide p-4 bg-white dark:bg-zinc-900 shadow-lg">
-      <DataTable title={title} onReload={onReload} setData={setData} get={get} add={add} remove={remove} update={update} data={data} columns={colums} />
+      <DataTable
+        setIsDialogOpen={setIsDialogOpen}
+        isDialogOpen={isDialogOpen}
+        title={title}
+        edit={edit}
+        setEdit={setEdit}
+        onReload={onReload}
+        get={get}
+        add={add}
+        remove={remove}
+        update={update}
+        data={data}
+        columns={colums}
+      />
     </div>
   );
 }
