@@ -9,11 +9,11 @@ export async function GET(req: NextRequest, { params }: any) {
     const { id } = await params;
 
     try {
-        const { res, data } = await apiClient(`${API_URL}/animals/${id}`, {
+        const { res, data } = await apiClient(`${API_URL}/users/${id}`, {
             method: 'GET',
             token,
             revalidate: 60,
-            tags: ['animals']
+            tags: ['users']
         });
 
         if (!res.ok) {
@@ -27,22 +27,22 @@ export async function GET(req: NextRequest, { params }: any) {
     }
 }
 
-export async function PATCH(req: NextRequest, { params }: any ) {
+export async function PATCH(req: NextRequest, { params }: any) {
     const token = (await cookies()).get('token')?.value;
     const { id } = await params;
     const body = await req.json();
 
     try {
-        const { res, data } = await apiClient(`${API_URL}/animals/${id}`, {
+        const { res, data } = await apiClient(`${API_URL}/users/${id}`, {
             method: 'PATCH',
             token,
-            body
+            body,
         });
 
         if (!res.ok) {
             return NextResponse.json({ success: false, message: (data as { message?: string })?.message }, { status: res.status });
         }
-        revalidateTag('animals')
+        revalidateTag('users')
         return NextResponse.json(data, { status: res.status });
     } catch (e: any) {
         console.error("Erro ao atualizar animal:", e);
@@ -55,15 +55,15 @@ export async function DELETE(_: NextRequest, { params }: any) {
     const { id } = await params;
 
     try {
-        const { res, data } = await apiClient(`${API_URL}/animals/${id}`, {
+        const { res, data } = await apiClient(`${API_URL}/users/${id}`, {
             method: 'DELETE',
-            token
+            token,
         });
 
         if (!res.ok) {
             return NextResponse.json({ success: false, message: (data as { message?: string })?.message }, { status: res.status });
         }
-        revalidateTag('animals')
+        revalidateTag('users')
         return NextResponse.json(data, { status: 200 });
     } catch (e: any) {
         console.error("Erro ao remover animal:", e);
