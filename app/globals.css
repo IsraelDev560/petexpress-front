@@ -109,13 +109,17 @@
   --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --sidebar-ring: oklch(0.439 0 0);
 }
 
 @keyframes neonPulse {
-  0%, 100% {
-    box-shadow: 0 0 6px 2px rgba(59, 130, 246, 0.6); /* azul Tailwind 500 */
+
+  0%,
+  100% {
+    box-shadow: 0 0 6px 2px rgba(59, 130, 246, 0.6);
+    /* azul Tailwind 500 */
   }
+
   50% {
     box-shadow: 0 0 10px 4px rgba(59, 130, 246, 1);
   }

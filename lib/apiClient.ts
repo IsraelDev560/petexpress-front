@@ -1,8 +1,11 @@
+import { NEXT_PUBLIC_API_FRONT } from "./ApiUrl";
+
 interface ApiClientOptions {
     method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
     token?: string;
     body?: Record<string, any>;
     revalidate?: number;
+    tags?: string[];
 }
 
 interface ApiResponse<T> {
@@ -16,6 +19,7 @@ export const apiClient = async <T>(url: string, options: ApiClientOptions = {}):
         token,
         body,
         revalidate = 0,
+        tags = []
     } = options;
     const headers: Record<string, string> = {};
 
@@ -23,10 +27,10 @@ export const apiClient = async <T>(url: string, options: ApiClientOptions = {}):
         headers['Authorization'] = `Bearer ${token}`;
     }
 
-    let nextOptions: { next?: { revalidate: number } } = {};;
+    let nextOptions: { next?: { revalidate: number, tags: string[] } } = {};;
 
     if (revalidate) {
-        nextOptions = { next: { revalidate } };
+        nextOptions = { next: { revalidate, tags } };
     }
 
     const fetchOptions: RequestInit = {
@@ -51,6 +55,13 @@ export const apiClient = async <T>(url: string, options: ApiClientOptions = {}):
             };
         }
 
+        if(res.status === 401) {
+            console.log("Unathorized user.")
+            await fetch(`${NEXT_PUBLIC_API_FRONT}/api/auth/logout`, {
+                method: 'POST'
+            })
+        }
+
         const text = await res.text();
 
         let data: T;
@@ -59,7 +70,6 @@ export const apiClient = async <T>(url: string, options: ApiClientOptions = {}):
         } catch (e) {
             data = text as T;
         }
-
 
         return { res, data };
     } catch (err) {
