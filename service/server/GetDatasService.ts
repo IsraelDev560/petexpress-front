@@ -3,18 +3,13 @@ import { Animal } from "@/types/Animal";
 import { Task } from "@/types/Task";
 import { TaskType } from "@/types/Task-Type";
 import { User } from "@/types/User";
+import { redirect } from "next/navigation";
 
 function headersFunction(token: string) {
     return {
         "Authorization": `Bearer ${token}`,
         "Content-Type": "application/json",
     }
-}
-
-interface PromiseResponse {
-    success: boolean;
-    data?: Animal;
-    status: number;
 }
 
 export async function getAnimalsServer(token: string): Promise<Animal[]> {
@@ -29,6 +24,9 @@ export async function getAnimalsServer(token: string): Promise<Animal[]> {
         })
 
         if (!res.ok) throw new Error("Erro ao buscar animais")
+        if (res.status === 401) {
+            redirect("/api/auth/logout");
+        }
 
         const data = await res.json();
         return data as Animal[];
@@ -142,6 +140,10 @@ export async function getTasksServer(token: string): Promise<Task[]> {
 
         if (!res.ok) throw new Error("Erro ao buscar tasks")
 
+        if (res.status === 401) {
+            redirect("/api/auth/logout");
+        }
+
         const data = await res.json();
         return data as Task[];
     } catch (e) {
@@ -161,6 +163,10 @@ export async function getTasksTypesServer(token: string): Promise<TaskType[]> {
         })
 
         if (!res.ok) throw new Error("Erro ao buscar tasks-types")
+
+        if (res.status === 401) {
+            redirect("/api/auth/logout");
+        }
 
         const data = await res.json();
         return data as TaskType[];
@@ -182,6 +188,10 @@ export async function getUsersServer(token: string): Promise<User[]> {
 
         if (!res.ok) throw new Error("Erro ao buscar USERS")
 
+        if (res.status === 401) {
+            redirect("/api/auth/logout");
+        }
+
         const data = await res.json();
         return data as User[];
     } catch (e) {
@@ -189,7 +199,7 @@ export async function getUsersServer(token: string): Promise<User[]> {
     }
 }
 
-export async function getMyInfoUserServer(token: string): Promise<User> {
+export async function getMyInfoUserServer(token: string): Promise<User | null> {
     try {
         const res = await fetch(`${API_URL}/users/myinfo`, {
             method: 'GET',
@@ -202,12 +212,16 @@ export async function getMyInfoUserServer(token: string): Promise<User> {
 
         if (!res.ok) throw new Error("Erro ao buscar my info")
 
+        if (res.status === 401) {
+            redirect("/api/auth/logout");
+        }
+
         const data = await res.json();
         return {
             username: data.username,
             role: data.role,
         } as User;
-    } catch (e) {
-        throw new Error("Erro ao buscar my info");
+    } catch (e: any) {
+        return null;
     }
 }
