@@ -39,7 +39,7 @@ More details can be found in the backend’s README.
 4. For a production build run:
    ```bash
    pnpm run build
-   pnpm run start
+   pnpm start
    ```
    Linting is available with `pnpm lint`.
 
@@ -103,7 +103,7 @@ Os detalhes completos estão no README do backend.
 4. Para gerar a versão de produção:
    ```bash
    pnpm run build
-   pnpm run start
+   pnpm start
    ```
    Utilize `pnpm lint` para executar os linters.
 
