@@ -4,9 +4,11 @@ import DashboardClient from "./DashboardClient";
 
 export default async function Dashboard() {
     const token = (await cookies()).get('token')?.value ?? "";
-    const animals = await getAnimalsServer(token);
-    const tasks = await getTasksServer(token);
-    const tasksTypes = await getTasksTypesServer(token);
-    const users = await getUsersServer(token);
+    const [animals, tasks, tasksTypes, users] = await Promise.all([
+        getAnimalsServer(token),
+        getTasksServer(token),
+        getTasksTypesServer(token),
+        getUsersServer(token),
+    ]);
     return <DashboardClient animals={animals} tasks={tasks} tasksTypes={tasksTypes} users={users} />
 }
