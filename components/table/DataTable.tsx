@@ -119,7 +119,7 @@ export function DataTable<TData extends Record<string, any>, TValue>({
                     />
                 )}
                 <Input
-                    placeholder={`Pesquisar ${title}...`}
+                    placeholder={`Search ${title}...`}
                     value={(table?.getColumn("global")?.getFilterValue() as string) ?? ''}
                     onChange={(e) => table.getColumn("global")?.setFilterValue(e.target.value)}
                     className="max-w-sm"
