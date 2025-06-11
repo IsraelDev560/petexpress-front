@@ -74,7 +74,10 @@ export default function AddForms<T extends Record<string, any>>({
             : 'Added successfully!',
           type: 'success'
         })
-        setTimeout(() => onReload(), 400);
+        setTimeout(() => {
+          setOpen({ open: false, type: mapTitleToType(title) });
+          onReload()
+        }, 2000);
       } else {
         const errorMessage =
           typeof data?.message === 'string'
@@ -91,7 +94,6 @@ export default function AddForms<T extends Record<string, any>>({
     } finally {
       setTimeout(() => {
         setFeedback({ message: '', type: '' });
-        setOpen({ open: false, type: mapTitleToType(title) });
       }, 2000);
     }
   };

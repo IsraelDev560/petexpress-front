@@ -16,7 +16,7 @@ import Link from "next/link"
 import { logout } from "@/service/client/AuthService"
 import { ModeToggle } from "./theme-button"
 import { User } from "@/types/User"
-import { useContext, useEffect } from "react"
+import { useEffect } from "react"
 import { useUser } from "@/context/UserContext"
 
 const items = [
@@ -42,7 +42,7 @@ export function AppSidebar({
                     <SidebarGroupLabel>Application</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
-                            {items.map((item) => (
+                            {/* {items.map((item) => (
                                 <SidebarMenuItem key={item.title}>
                                     <SidebarMenuButton asChild>
                                         <Link href={item.url}>
@@ -51,7 +51,7 @@ export function AppSidebar({
                                         </Link>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
-                            ))}
+                            ))} */}
                             <SidebarMenuItem>
                                 <SidebarMenuButton className="cursor-pointer" onClick={logout}>
                                     <LogOut />
