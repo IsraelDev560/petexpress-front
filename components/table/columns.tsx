@@ -46,7 +46,7 @@ export function generateColumns<T extends Record<string, any>>(
                         <DropdownMenuSeparator />
                         <DropdownMenuItem onClick={() => {
                             remove(String(item.id))
-                            setTimeout(() => onReload(), 200);
+                            setTimeout(() => onReload(), 300);
                         }}>
                             Delete
                         </DropdownMenuItem>
