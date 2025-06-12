@@ -2,7 +2,8 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function GET() {
-    const res = NextResponse.redirect(new URL("/", process.env.NEXT_PUBLIC_API_FRONT));
+    const isProd = process.env.NODE_ENV === 'production'
+    const res = NextResponse.redirect(new URL("/", isProd ? process.env.NEXT_PUBLIC_API_FRONT : process.env.NEXT_PUBLIC_API_FRONT_DEV));
     res.cookies.set("token", "", {
         maxAge: 0,
         path: "/",
