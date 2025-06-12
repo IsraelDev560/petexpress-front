@@ -1,9 +1,9 @@
 import { cookies } from "next/headers";
 import { getAnimalsServer, getTasksServer, getTasksTypesServer, getUsersServer } from "@/service/server/GetDatasService";
-import DashboardClient from "./DashboardClient";
+import TablesClient from "./TablesClient";
 import { redirect } from "next/navigation";
 
-export default async function Dashboard() {
+export default async function Tables() {
     const token = (await cookies()).get('token')?.value ?? "";
     if (!token) {
         redirect("/");
@@ -14,5 +14,5 @@ export default async function Dashboard() {
         getTasksTypesServer(token),
         getUsersServer(token),
     ]);
-    return <DashboardClient animals={animals} tasks={tasks} tasksTypes={tasksTypes} users={users} />
+    return <TablesClient animals={animals} tasks={tasks} tasksTypes={tasksTypes} users={users} />
 }

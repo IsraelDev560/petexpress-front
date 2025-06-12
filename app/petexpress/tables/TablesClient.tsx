@@ -11,7 +11,7 @@ import { addTaskTypesClient, getTasksTypesClient, removeTaskTypeClient, searchTa
 import { User } from "@/types/User";
 import { addUsersClient, getUsersClient, removeUserClient, searchUserByIdClient, updateUserClient } from "@/service/client/UserService";
 
-export default function DashboardClient({
+export default function TablesClient({
     animals: animalsData,
     tasks: tasksData,
     tasksTypes,

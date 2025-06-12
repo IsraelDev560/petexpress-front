@@ -4,7 +4,7 @@ import { getMyInfoUserServer } from "@/service/server/GetDatasService";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default async function PetExpressLayout({ children }: { children: React.ReactNode }) {
     const token = (await cookies()).get('token')?.value ?? '';
     const myinfo = await getMyInfoUserServer(token);
 
@@ -13,7 +13,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
     return (
         <SidebarProvider>
             <AppSidebar user={myinfo} />
-            <main>
+            <main className="w-full">
                 <SidebarTrigger />
                 {children}
             </main>
