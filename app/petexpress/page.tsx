@@ -9,7 +9,6 @@ export default function GettingStarted() {
   return (
     <div className="min-h-screen text-black dark:text-white p-8">
       <div className="max-w-4xl mx-auto space-y-10">
-        {/* Título principal */}
         <header className="text-center">
           <h1 className="text-4xl font-bold text-black dark:text-white">🚀 Getting Started with PetExpress</h1>
           <p className="dark:text-gray-400 text-black mt-2">
@@ -17,7 +16,6 @@ export default function GettingStarted() {
           </p>
         </header>
 
-        {/* Seção: User Roles */}
         <section className="bg-gray-900/70 p-6 rounded-xl shadow-md border border-gray-700">
           <h2 className="text-2xl font-semibold text-blue-400 mb-3">👥 User Roles</h2>
           <p className="text-gray-300">
@@ -32,7 +30,6 @@ export default function GettingStarted() {
           </p>
         </section>
 
-        {/* Seção: Animal Registration */}
         <section className="bg-gray-900/70 p-6 rounded-xl shadow-md border border-gray-700">
           <h2 className="text-2xl font-semibold text-blue-400 mb-3">🐾 Animal Registration</h2>
           <p className="text-gray-300">
@@ -40,7 +37,6 @@ export default function GettingStarted() {
           </p>
         </section>
 
-        {/* Seção: Task Management */}
         <section className="bg-gray-900/70 p-6 rounded-xl shadow-md border border-gray-700">
           <h2 className="text-2xl font-semibold text-blue-400 mb-3">📋 Task Management</h2>
           <p className="text-gray-300">
@@ -56,7 +52,6 @@ export default function GettingStarted() {
           </p>
         </section>
 
-        {/* Seção: Security */}
         <section className="bg-gray-900/70 p-6 rounded-xl shadow-md border border-gray-700">
           <h2 className="text-2xl font-semibold text-blue-400 mb-3">🔒 Security</h2>
           <p className="text-gray-300">
@@ -64,7 +59,6 @@ export default function GettingStarted() {
           </p>
         </section>
 
-        {/* Seção: FAQ Accordion */}
         <section className="bg-gray-900/70 p-6 rounded-xl shadow-md border border-gray-700">
           <h2 className="text-2xl font-semibold text-blue-400 mb-6 text-center">📚 Dubouts</h2>
 
