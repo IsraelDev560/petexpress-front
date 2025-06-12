@@ -95,7 +95,7 @@ The `/app/api` directory exposes endpoints that act as a proxy to `${API_URL}`. 
 - `GET /api/tasks-type/all`, `POST /api/tasks-type`, `PATCH /api/tasks-type/[id]`, `DELETE /api/tasks-type/[id]` – task categories.
 - `GET /api/users/all`, `POST /api/users`, `PATCH /api/users/[id]`, `DELETE /api/users/[id]` – user administration.
 
-Authentication tokens are stored in cookies. The middleware (`middleware.ts`) redirects to `/` if the user is not logged in when visiting `/dashboard`.
+Authentication tokens are stored in cookies. The middleware (`middleware.ts`) redirects to `/` if the user is not logged in when visiting `//petexpress/**`.
 
 ---
 
@@ -191,4 +191,4 @@ O diretório `/app/api` expõe rotas que funcionam como proxy para `${API_URL}`.
 - `GET /api/tasks-type/all`, `POST /api/tasks-type`, `PATCH /api/tasks-type/[id]`, `DELETE /api/tasks-type/[id]` – categorias de tarefa.
 - `GET /api/users/all`, `POST /api/users`, `PATCH /api/users/[id]`, `DELETE /api/users/[id]` – administração de usuários.
 
-O token de autenticação é armazenado em cookies. O arquivo `middleware.ts` redireciona para `/` caso o usuário não esteja logado ao acessar `/dashboard`.
+O token de autenticação é armazenado em cookies. O arquivo `middleware.ts` redireciona para `/` caso o usuário não esteja logado ao acessar `//petexpress/**`.
