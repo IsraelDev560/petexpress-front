@@ -1,6 +1,7 @@
 'use client'
 
-import { Calendar, Home, LogOut, ShieldCheck, UserCircle2 } from "lucide-react"
+import { Calendar, Home, LogOut, ShieldCheck, UserCircle2, Table, icons  } from "lucide-react"
+
 
 import {
     Sidebar,
@@ -22,9 +23,14 @@ import { useUser } from "@/context/UserContext"
 const items = [
     {
         title: "Home",
-        url: "/dashboard",
+        url: "/petexpress",
         icon: Home,
     },
+    {
+        title: "Tables",
+        url: "/petexpress/tables",
+        icon: Table
+    }
 ]
 
 export function AppSidebar({
@@ -42,7 +48,7 @@ export function AppSidebar({
                     <SidebarGroupLabel>Application</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
-                            {/* {items.map((item) => (
+                            {items.map((item) => (
                                 <SidebarMenuItem key={item.title}>
                                     <SidebarMenuButton asChild>
                                         <Link href={item.url}>
@@ -51,7 +57,7 @@ export function AppSidebar({
                                         </Link>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
-                            ))} */}
+                            ))}
                             <SidebarMenuItem>
                                 <SidebarMenuButton className="cursor-pointer" onClick={logout}>
                                     <LogOut />

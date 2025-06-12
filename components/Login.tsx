@@ -48,7 +48,7 @@ export function Login() {
                 message: "Login realizado com sucesso!",
                 type: 'success'
             });
-            router.push('/dashboard')
+            router.push('/petexpress')
         } catch (e: any) {
             setFeedback({
                 message: e?.message || "Erro inesperado.",

@@ -36,7 +36,7 @@ export default function List<T extends Record<string, any>>({
     try {
       const res = await get();
       if ("data" in res && Array.isArray(res.data)) {
-        setData(res.data);
+        setData(res.data as T[]);
       } else {
         setData([]);
       }
