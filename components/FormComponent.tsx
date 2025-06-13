@@ -35,7 +35,9 @@ export function FormComponent<T extends FieldValues>({ title, onSubmit, form, lo
                             )}
                         />
                     ))}
-                    {feedback && <FeedbackComponent message={feedback.message} type={feedback.type} />}
+                    {feedback?.message && (
+                        <FeedbackComponent message={feedback.message} type={feedback.type} />
+                    )}
                     {loading ? <MiniLoading /> : <Button className="cursor-pointer" type="submit">{'ENTRAR'}</Button>}
                 </form>
             </Form>
