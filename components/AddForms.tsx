@@ -76,8 +76,11 @@ export default function AddForms<T extends Record<string, any>>({
         })
         setTimeout(() => {
           setOpen({ open: false, type: mapTitleToType(title) });
-          onReload()
-        }, 2000);
+        }, 500);
+
+        setTimeout(() => {
+          onReload();
+        }, 1000);
       } else {
         const errorMessage =
           typeof data?.message === 'string'
@@ -99,7 +102,7 @@ export default function AddForms<T extends Record<string, any>>({
   };
 
   return (
-    <Dialog open={open.open} onOpenChange={(isOpen) => {
+    <Dialog key={open.type} open={open.open} onOpenChange={(isOpen) => {
       setOpen({ ...open, open: isOpen, type: mapTitleToType(title) });
       if (!isOpen) setEdit(null);
     }}
