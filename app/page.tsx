@@ -1,11 +1,14 @@
-import { AuthForm } from "@/components/AuthForm";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+'use client'
 
-export default async function Home() {
-  const cookiesStore = await cookies();
-  const token = cookiesStore.get("token");
-  if (token) redirect('/petexpress')
+import { AuthForm } from "@/components/AuthForm";
+import { useEffect } from "react";
+
+export default function Home() {
+  useEffect(() => {
+    fetch("/api/wakeup")
+      .then(() => console.log("🔔 Render acordado"))
+      .catch(() => console.warn("😴 Falha ao acordar API"));
+  }, []);
   return (
     <div className="flex flex-col items-center mx-auto justify-center min-h-screen p-2 bg-[#FFFFFF] dark:bg-[#09090B]">
       <AuthForm />
