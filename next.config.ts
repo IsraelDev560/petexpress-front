@@ -5,6 +5,17 @@ const nextConfig: NextConfig = {
     fetches: {
       fullUrl: true
     }
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        port: '',
+        pathname: '/**',
+        search: ''
+      }
+    ]
   }
 };
 

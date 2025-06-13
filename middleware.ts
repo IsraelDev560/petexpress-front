@@ -12,7 +12,7 @@ export async function middleware(request: NextRequest) {
 
   const isLoginPage = pathname.startsWith('/')
 
-  if (request.nextUrl.pathname.startsWith('/dashboard') && !token) {
+  if (request.nextUrl.pathname.startsWith('/petexpress/**') && !token) {
     return NextResponse.redirect(new URL('/', request.url));
   }
 
@@ -25,5 +25,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/dashboard'],
+  matcher: ['/petxpress/:path*'],
 };

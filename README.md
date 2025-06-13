@@ -74,16 +74,26 @@ More details can be found in the backend’s README.
 
 ### Folder structure
 
-- `app/` – Next.js pages and API routes that forward requests to the backend.
-- `components/` – Reusable React components and UI primitives (Radix UI + Tailwind).
-- `context/` – User context provider used for authentication state.
-- `hooks/` – Custom hooks such as `useIsMobile`.
-- `service/` – Client and server utilities for interacting with the REST API.
-  - `client/` – functions for CRUD operations on animals, tasks, users and task types.
-  - `server/` – helper for server‑side fetches (`GetDatasService`).
-- `schemas/` – Zod schemas that validate forms and request payloads.
-- `lib/` – Generic helpers (`apiClient.ts`, `ApiUrl.ts`).
-- `types/` – TypeScript types shared across the app.
+```
+petexpress-front/
+├── app/             # Next.js pages and proxy API routes
+│   ├── api/         # endpoints that forward requests to the backend
+│   └── petexpress/  # protected dashboard pages
+├── components/
+│   ├── table/       # data table helpers
+│   ├── ui/          # shadcn/ui primitives styled with Tailwind
+│   └── utils/       # small reusable pieces (loading, feedback...)
+├── context/         # authentication provider
+├── hooks/           # custom React hooks
+├── lib/             # generic helpers like `apiClient.ts`
+├── schemas/         # Zod schemas for forms and requests
+├── service/
+│   ├── client/      # CRUD functions for REST endpoints
+│   └── server/      # server-side fetch utilities
+├── types/           # shared TypeScript types
+├── middleware.ts    # Next.js middleware for route protection
+└── next.config.ts   # project configuration
+```
 
 ### API routes
 
@@ -95,7 +105,7 @@ The `/app/api` directory exposes endpoints that act as a proxy to `${API_URL}`. 
 - `GET /api/tasks-type/all`, `POST /api/tasks-type`, `PATCH /api/tasks-type/[id]`, `DELETE /api/tasks-type/[id]` – task categories.
 - `GET /api/users/all`, `POST /api/users`, `PATCH /api/users/[id]`, `DELETE /api/users/[id]` – user administration.
 
-Authentication tokens are stored in cookies. The middleware (`middleware.ts`) redirects to `/` if the user is not logged in when visiting `/dashboard`.
+Authentication tokens are stored in cookies. The middleware (`middleware.ts`) redirects to `/` if the user is not logged in when visiting `//petexpress/**`.
 
 ---
 
@@ -170,16 +180,26 @@ Os detalhes completos estão no README do backend.
 
 ### Estrutura de pastas
 
-- `app/` – páginas e rotas API que fazem proxy para o backend.
-- `components/` – componentes reutilizáveis (Shadcn/ui + Tailwind).
-- `context/` – provedor de contexto do usuário utilizado na autenticação.
-- `hooks/` – hooks personalizados, como `useIsMobile`.
-- `service/` – utilidades de comunicação REST.
-  - `client/` – funções de CRUD para animais, tarefas, usuários e tipos de tarefa.
-  - `server/` – auxiliar para requisições server side.
-- `schemas/` – validações com Zod.
-- `lib/` – helpers genéricos.
-- `types/` – tipos TypeScript compartilhados.
+```
+petexpress-front/
+├── app/             # páginas do Next.js e rotas de proxy
+│   ├── api/         # endpoints que redirecionam para o backend
+│   └── petexpress/  # páginas protegidas do painel
+├── components/
+│   ├── table/       # componentes de tabelas reutilizáveis
+│   ├── ui/          # primitivos do shadcn/ui com Tailwind
+│   └── utils/       # pequenos auxiliares (loading, feedback...)
+├── context/         # provider de autenticação
+├── hooks/           # hooks personalizados
+├── lib/             # helpers genéricos como `apiClient.ts`
+├── schemas/         # validações com Zod
+├── service/
+│   ├── client/      # funções CRUD para as rotas REST
+│   └── server/      # utilidades para fetch no servidor
+├── types/           # definições TypeScript compartilhadas
+├── middleware.ts    # middleware do Next.js que protege rotas
+└── next.config.ts   # configuração do projeto
+```
 
 ### Rotas de API
 
@@ -191,4 +211,4 @@ O diretório `/app/api` expõe rotas que funcionam como proxy para `${API_URL}`.
 - `GET /api/tasks-type/all`, `POST /api/tasks-type`, `PATCH /api/tasks-type/[id]`, `DELETE /api/tasks-type/[id]` – categorias de tarefa.
 - `GET /api/users/all`, `POST /api/users`, `PATCH /api/users/[id]`, `DELETE /api/users/[id]` – administração de usuários.
 
-O token de autenticação é armazenado em cookies. O arquivo `middleware.ts` redireciona para `/` caso o usuário não esteja logado ao acessar `/dashboard`.
+O token de autenticação é armazenado em cookies. O arquivo `middleware.ts` redireciona para `/` caso o usuário não esteja logado ao acessar `//petexpress/**`.

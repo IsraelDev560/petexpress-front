@@ -104,7 +104,7 @@ export function DataTable<TData extends Record<string, any>, TValue>({
     return (
         <main>
             <div className="flex items-center gap-4 py-4">
-                {user?.role === 'ADMIN' && (
+                {!(user?.role === 'USER' && title === 'Users') && (
                     <AddForms<TData>
                         title={title}
                         add={add}
