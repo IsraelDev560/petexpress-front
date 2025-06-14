@@ -27,7 +27,11 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const token = (await cookies()).get('token')?.value
-  if (token) redirect('/petexpress')
+  const currentPath = "/";
+  if (token && currentPath === "/") {
+    redirect("/petexpress");
+  }
+
   return (
     <html lang="pt-br" suppressHydrationWarning>
       <body
