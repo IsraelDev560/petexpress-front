@@ -5,11 +5,15 @@ export async function POST(req: NextRequest) {
     const res = await fetch(`${process.env.API_URL}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username: "Teste", password: "TEste123"})
+      body: JSON.stringify({ username: "Teste", password: "TEste123" })
     });
-    if (!res.ok) throw new Error("Falha no ping");
-    return new NextResponse(JSON.stringify({ message: "Acordou com sucesso" }), { status: 200 });
+
+    const result = await res.json();
+
+    if (!res.ok) throw new Error(result.message || "Falha no login");
+
+    return NextResponse.json({ message: "Acordou com sucesso", result });
   } catch (err: any) {
-    return new NextResponse(JSON.stringify({ error: err.message }), { status: 500 });
+    return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }
