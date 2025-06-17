@@ -11,7 +11,7 @@ export default function FeedbackComponent({ message, type }: FeedbackType) {
                 'text-gray-500'
             }`}
         >
-            {message}
+            {typeof message === 'string' ? message : 'Erro inesperado.'}
         </p>
     );
 }

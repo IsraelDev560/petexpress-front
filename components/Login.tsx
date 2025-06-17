@@ -50,12 +50,17 @@ export function Login() {
             });
             router.push('/petexpress')
         } catch (e: any) {
+            const safeMessage =
+                typeof e?.message === 'string'
+                    ? e.message
+                    : 'Erro inesperado. Tente novamente mais tarde.';
+
             setFeedback({
-                message: e?.message || "Erro inesperado.",
-                type: 'error'
+                message: safeMessage,
+                type: 'error',
             });
             console.log("Erro no login:", e);
-        } finally{
+        } finally {
             setLoading(false);
         }
     }
