@@ -64,28 +64,28 @@ export default function GettingStarted() {
 
           <Accordion type="multiple" className="space-y-2 text-gray-100 dark:text-gray-300">
             <AccordionItem value="faq-1">
-              <AccordionTrigger>Can a USER create or delete other users?</AccordionTrigger>
+              <AccordionTrigger className="cursor-pointer">Can a USER create or delete other users?</AccordionTrigger>
               <AccordionContent>
                 No. Only ADMINs have permission to manage user accounts.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="faq-2">
-              <AccordionTrigger>Can I edit an animal after it's registered?</AccordionTrigger>
+              <AccordionTrigger className="cursor-pointer">Can I edit an animal after it's registered?</AccordionTrigger>
               <AccordionContent>
                 Yes. You can update an animal's info anytime by accessing the animal table.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="faq-3">
-              <AccordionTrigger>Are task types customizable?</AccordionTrigger>
+              <AccordionTrigger className="cursor-pointer">Are task types customizable?</AccordionTrigger>
               <AccordionContent>
                 Yes. You can define and manage your own task types in the system settings.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="faq-4">
-              <AccordionTrigger>What happens if I delete an animal?</AccordionTrigger>
+              <AccordionTrigger className="cursor-pointer">What happens if I delete an animal?</AccordionTrigger>
               <AccordionContent>
                 All tasks linked to that animal will also be removed. Be careful!
               </AccordionContent>
