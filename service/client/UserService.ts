@@ -14,12 +14,12 @@ export async function getUsersClient(): Promise<ApiResponse<User[]>> {
       data: res.ok ? (data as User[]) : [],
     };
   } catch (e) {
-    console.error("Erro ao listar users:", e);
+    console.error("An error occurred while listing users:", e);
     return {
       success: false,
       status: 500,
       data: {
-        message: "Erro ao listar users.",
+        message: "Failed to list users.",
         status: 500,
         timeStamp: new Date().toISOString(),
       }
@@ -40,12 +40,12 @@ export async function addUsersClient(dataUser: User): Promise<ApiResponse<User>>
       data: data as User,
     };
   } catch (e) {
-    console.error("Erro ao adicionar User:", e);
+    console.error("An error occurred while adding a user:", e);
     return {
       success: false,
       status: 500,
       data: {
-        message: "Erro ao adicionar User.",
+        message: "Failed to add user.",
         status: 500,
         timeStamp: new Date().toISOString(),
       }
@@ -66,12 +66,12 @@ export async function updateUserClient(id: string, item: User): Promise<ApiRespo
       data: data as User,
     };
   } catch (e) {
-    console.error("Erro ao atualizar User:", e);
+    console.error("An error occurred while updating the user:", e);
     return {
       success: false,
       status: 500,
       data: {
-        message: "Erro ao atualizar User.",
+        message: "Failed to update user.",
         status: 500,
         timeStamp: new Date().toISOString(),
       }
@@ -91,12 +91,12 @@ export async function removeUserClient(id: string): Promise<ApiResponse<null>> {
       data: null,
     };
   } catch (e) {
-    console.error("Erro ao remover User:", e);
+    console.error("An error occurred while deleting the user:", e);
     return {
       success: false,
       status: 500,
       data: {
-        message: "Erro ao remover User.",
+        message: "Failed to delete user.",
         status: 500,
         timeStamp: new Date().toISOString(),
       }
@@ -116,12 +116,12 @@ export async function searchUserByIdClient(id: string): Promise<ApiResponse<User
       data: res.ok ? (data as User) : null,
     };
   } catch (e) {
-    console.error("Erro ao buscar User por ID:", e);
+    console.error("An error occurred while fetching user by ID:", e);
     return {
       success: false,
       status: 500,
       data: {
-        message: "Erro ao buscar User por ID.",
+        message: "Failed to fetch user by ID.",
         status: 500,
         timeStamp: new Date().toISOString(),
       }

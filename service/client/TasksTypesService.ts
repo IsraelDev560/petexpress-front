@@ -14,12 +14,12 @@ export async function getTasksTypesClient(): Promise<ApiResponse<TaskType[]>> {
       data: res.ok ? (data as TaskType[]) : [],
     };
   } catch (e) {
-    console.error("Erro ao listar TaskType:", e);
+    console.error("An error occurred while listing task types:", e);
     return {
       success: false,
       status: 500,
       data: {
-        message: "Erro ao listar TaskType.",
+        message: "Failed to list task types.",
         status: 500,
         timeStamp: new Date().toISOString(),
       }
@@ -40,12 +40,12 @@ export async function addTaskTypesClient(dataTaskType: TaskType): Promise<ApiRes
       data: data as TaskType,
     };
   } catch (e) {
-    console.error("Erro ao adicionar TaskType:", e);
+    console.error("An error occurred while adding a task type:", e);
     return {
       success: false,
       status: 500,
       data: {
-        message: "Erro ao adicionar TaskType.",
+        message: "Failed to add task type.",
         status: 500,
         timeStamp: new Date().toISOString(),
       }
@@ -66,12 +66,12 @@ export async function updateTaskTypeClient(id: string, item: TaskType): Promise<
       data: data as TaskType,
     };
   } catch (e) {
-    console.error("Erro ao atualizar TaskType:", e);
+    console.error("An error occurred while updating the task type:", e);
     return {
       success: false,
       status: 500,
       data: {
-        message: "Erro ao atualizar TaskType.",
+        message: "Failed to update task type.",
         status: 500,
         timeStamp: new Date().toISOString(),
       }
@@ -91,12 +91,12 @@ export async function removeTaskTypeClient(id: string): Promise<ApiResponse<null
       data: null,
     };
   } catch (e) {
-    console.error("Erro ao remover TaskType:", e);
+    console.error("An error occurred while deleting the task type:", e);
     return {
       success: false,
       status: 500,
       data: {
-        message: "Erro ao remover TaskType.",
+        message: "Failed to delete task type.",
         status: 500,
         timeStamp: new Date().toISOString(),
       }
@@ -116,12 +116,12 @@ export async function searchTaskTypeByIdClient(id: string): Promise<ApiResponse<
       data: res.ok ? (data as TaskType) : null,
     };
   } catch (e) {
-    console.error("Erro ao buscar TaskType por ID:", e);
+    console.error("An error occurred while fetching task type by ID:", e);
     return {
       success: false,
       status: 500,
       data: {
-        message: "Erro ao buscar TaskType por ID.",
+        message: "Failed to fetch task type by ID.",
         status: 500,
         timeStamp: new Date().toISOString(),
       }

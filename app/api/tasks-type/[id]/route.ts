@@ -22,7 +22,7 @@ export async function GET(req: NextRequest, { params }: any) {
 
         return NextResponse.json(data, { status: res.status });
     } catch (e: any) {
-        console.error("Erro ao buscar animal por ID:", e);
+        console.error("An error occurred while fetching task type by ID:", e);
         return NextResponse.json({ success: false, message: e }, { status: 500 });
     }
 }
@@ -45,7 +45,7 @@ export async function PATCH(req: NextRequest, { params }: any) {
         revalidatePath('tasks-types')
         return NextResponse.json(data, { status: res.status });
     } catch (e: any) {
-        console.error("Erro ao atualizar animal:", e);
+        console.error("An error occurred while updating task type:", e);
         return NextResponse.json({ success: false, message: e }, { status: 500 });
     }
 }
@@ -66,7 +66,7 @@ export async function DELETE(_: NextRequest, { params }: any) {
         revalidatePath('tasks-types')
         return NextResponse.json(data, { status: 200 });
     } catch (e: any) {
-        console.error("Erro ao remover animal:", e);
+        console.error("An error occurred while deleting task type:", e);
         return NextResponse.json({ success: false, message: e }, { status: 500 });
     }
 }

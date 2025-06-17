@@ -22,7 +22,7 @@ export async function GET(req: NextRequest, { params }: any) {
 
         return NextResponse.json(data, { status: res.status });
     } catch (e: any) {
-        console.error("Erro ao buscar animal por ID:", e);
+        console.error("Error to search animal by ID:", e);
         return NextResponse.json({ success: false, message: e }, { status: 500 });
     }
 }
@@ -45,7 +45,7 @@ export async function PATCH(req: NextRequest, { params }: any) {
         revalidateTag('users')
         return NextResponse.json(data, { status: res.status });
     } catch (e: any) {
-        console.error("Erro ao atualizar animal:", e);
+        console.error("Error to update animal:", e);
         return NextResponse.json({ success: false, message: e }, { status: 500 });
     }
 }
@@ -66,7 +66,7 @@ export async function DELETE(_: NextRequest, { params }: any) {
         revalidateTag('users')
         return NextResponse.json(data, { status: 200 });
     } catch (e: any) {
-        console.error("Erro ao remover animal:", e);
+        console.error("Error to remove animal:", e);
         return NextResponse.json({ success: false, message: e }, { status: 500 });
     }
 }

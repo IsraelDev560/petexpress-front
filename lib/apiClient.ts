@@ -73,11 +73,12 @@ export const apiClient = async <T>(url: string, options: ApiClientOptions = {}):
 
         return { res, data };
     } catch (err: any) {
-        console.error(`Erro ao fazer requisição para ${url}:`, err);
-        let message = 'Erro inesperado.';
+        console.error(`Request to ${url} failed:`, err);
+
+        let message = 'Unexpected error.';
 
         if (err instanceof TypeError && err.message === 'Failed to fetch') {
-            message = 'Servidor indisponível. Verifique sua conexão ou tente novamente mais tarde.';
+            message = 'Server is unavailable. Please check your connection or try again later.';
         } else if (typeof err?.message === 'string') {
             message = err.message;
         }

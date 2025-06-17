@@ -23,109 +23,16 @@ export async function getAnimalsServer(token: string): Promise<Animal[]> {
             }
         })
 
-        if (!res.ok) throw new Error("Erro ao buscar animais")
-        if (res.status === 401) {
-            redirect("/api/auth/logout");
-        }
+        if (res.status === 401) redirect("/api/auth/logout");
+        if (!res.ok) throw new Error("Failed to fetch animals.");
 
         const data = await res.json();
         return data as Animal[];
     } catch (e) {
+        console.error("An error occurred while fetching animals:", e);
         return [];
     }
 }
-
-// export async function addAnimalsServer(token: string, dataAnimal: Animal): Promise<PromiseResponse> {
-//     try {
-//         const res = await fetch(`${API_URL}/animals`, {
-//             method: 'POST',
-//             headers: headersFunction(token),
-//             body: JSON.stringify(dataAnimal)
-//         })
-
-//         console.log(res, res.body)
-//         if (!res.ok) throw new Error("Erro ao tentar criar um animal")
-
-//         const data = await res.json();
-
-//         return {
-//             success: true,
-//             data: data as Animal,
-//             status: 200
-//         }
-//     } catch (e) {
-//         return {
-//             success: false,
-//             status: 500
-//         }
-//     }
-// }
-
-// export async function removeAnimalsServer(token: string, id: string): Promise<{
-//     success: boolean,
-//     status: number
-// }> {
-//     try {
-//         const res = await fetch(`${API_URL}/animals/${id}`, {
-//             method: 'DELETE',
-//             headers: headersFunction(token)
-//         })
-
-//         if (!res.ok) throw new Error("Erro ao tentar excluir um animal")
-
-//         return {
-//             success: true,
-//             status: 200
-//         }
-//     } catch (e) {
-//         return {
-//             success: false,
-//             status: 500
-//         }
-//     }
-// }
-
-// export async function searchAnimalByIdServer(token: string, id: string): Promise<Animal> {
-//     try {
-//         const res = await fetch(`${API_URL}/animals/${id}`, {
-//             method: 'GET',
-//             headers: headersFunction(token)
-//         })
-
-//         if (!res.ok) throw new Error("Erro ao tentar buscar um animal por id");
-
-//         const data = await res.json();
-
-//         return data
-//     } catch (e) {
-//         throw new Error("Animal not found");
-//     }
-// }
-
-// export async function updateAnimalServer(token: string, id: string, dataAnimal: Animal): Promise<PromiseResponse> {
-//     try {
-//         const res = await fetch(`${API_URL}/animals/${id}`, {
-//             method: 'PATCH',
-//             headers: headersFunction(token),
-//             body: JSON.stringify(dataAnimal)
-//         })
-
-//         if (!res.ok) throw new Error("Erro ao tentar atualizar um animal");
-
-//         const data = await res.json();
-
-//         return {
-//             success: true,
-//             data: data as Animal,
-//             status: 200
-//         }
-//     } catch (e) {
-//         return {
-//             success: false,
-//             status: 500
-//         }
-//     }
-// }
 
 export async function getTasksServer(token: string): Promise<Task[]> {
     try {
@@ -138,15 +45,13 @@ export async function getTasksServer(token: string): Promise<Task[]> {
             }
         })
 
-        if (!res.ok) throw new Error("Erro ao buscar tasks")
-
-        if (res.status === 401) {
-            redirect("/api/auth/logout");
-        }
+        if (res.status === 401) redirect("/api/auth/logout");
+        if (!res.ok) throw new Error("Failed to fetch tasks.");
 
         const data = await res.json();
         return data as Task[];
     } catch (e) {
+        console.error("An error occurred while fetching tasks:", e);
         return [];
     }
 }
@@ -162,15 +67,13 @@ export async function getTasksTypesServer(token: string): Promise<TaskType[]> {
             }
         })
 
-        if (!res.ok) throw new Error("Erro ao buscar tasks-types")
-
-        if (res.status === 401) {
-            redirect("/api/auth/logout");
-        }
+        if (res.status === 401) redirect("/api/auth/logout");
+        if (!res.ok) throw new Error("Failed to fetch task types.");
 
         const data = await res.json();
         return data as TaskType[];
     } catch (e) {
+        console.error("An error occurred while fetching task types:", e);
         return [];
     }
 }
@@ -186,15 +89,13 @@ export async function getUsersServer(token: string): Promise<User[]> {
             }
         })
 
-        if (!res.ok) throw new Error("Erro ao buscar USERS")
-
-        if (res.status === 401) {
-            redirect("/api/auth/logout");
-        }
+        if (res.status === 401) redirect("/api/auth/logout");
+        if (!res.ok) throw new Error("Failed to fetch users.");
 
         const data = await res.json();
         return data as User[];
     } catch (e) {
+        console.error("An error occurred while fetching users:", e);
         return [];
     }
 }
@@ -210,11 +111,8 @@ export async function getMyInfoUserServer(token: string): Promise<User | null> {
             }
         })
 
-        if (!res.ok) throw new Error("Erro ao buscar my info")
-
-        if (res.status === 401) {
-            redirect("/api/auth/logout");
-        }
+        if (res.status === 401) redirect("/api/auth/logout");
+        if (!res.ok) throw new Error("Failed to fetch user info.");
 
         const data = await res.json();
         return {
@@ -222,6 +120,7 @@ export async function getMyInfoUserServer(token: string): Promise<User | null> {
             role: data.role,
         } as User;
     } catch (e: any) {
+        console.error("An error occurred while fetching user info:", e);
         return null;
     }
 }

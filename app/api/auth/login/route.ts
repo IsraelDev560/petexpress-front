@@ -28,7 +28,7 @@ export async function POST(req: Request) {
             status: res.status
         })
     } catch (e: any) {
-        console.log("Ocorreu um erro ao tentar fazer login:", e);
+        console.error("An error occurred while trying to log in:", e);
         return NextResponse.json({
             success: false,
             message: e

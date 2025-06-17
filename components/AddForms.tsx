@@ -53,7 +53,7 @@ export default function AddForms<T extends Record<string, any>>({
     });
     const result = schema.safeParse(rawItem);
     if (!result.success) {
-      setFeedback({ message: "Erro de validação", type: "error" });
+      setFeedback({ message: "Validation Failed", type: "error" });
       console.warn(result.error);
       return;
     }
