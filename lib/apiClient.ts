@@ -55,7 +55,7 @@ export const apiClient = async <T>(url: string, options: ApiClientOptions = {}):
             };
         }
 
-        if(res.status === 401) {
+        if (res.status === 401) {
             console.log("Unathorized user.")
             await fetch(`${NEXT_PUBLIC_API_FRONT}/api/auth/logout`, {
                 method: 'POST'
@@ -72,8 +72,21 @@ export const apiClient = async <T>(url: string, options: ApiClientOptions = {}):
         }
 
         return { res, data };
-    } catch (err) {
+    } catch (err: any) {
         console.error(`Erro ao fazer requisição para ${url}:`, err);
-        throw err;
+        let message = 'Erro inesperado.';
+
+        if (err instanceof TypeError && err.message === 'Failed to fetch') {
+            message = 'Servidor indisponível. Verifique sua conexão ou tente novamente mais tarde.';
+        } else if (typeof err?.message === 'string') {
+            message = err.message;
+        }
+
+        throw {
+            message,
+            original: err,
+            type: 'NetworkError',
+            url,
+        };
     }
 };
