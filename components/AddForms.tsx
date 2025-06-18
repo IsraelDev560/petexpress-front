@@ -20,6 +20,7 @@ import { ApiResponse } from "@/types/ApiResponse"
 import { z } from "zod"
 import { DialogState } from "./List"
 import { mapTitleToType } from "./table/columns"
+import { CalendarInput } from "./Calendar"
 
 export default function AddForms<T extends Record<string, any>>({
   title,
@@ -42,6 +43,7 @@ export default function AddForms<T extends Record<string, any>>({
   setOpen: (open: DialogState) => void;
   onReload: () => void;
 }) {
+  const [formData, setFormData] = useState<Record<string, string>>({})
   const isEdit = !!edit;
   const [feedback, setFeedback] = useState({ message: '', type: '' })
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -53,7 +55,7 @@ export default function AddForms<T extends Record<string, any>>({
     });
     const result = schema.safeParse(rawItem);
     if (!result.success) {
-      setFeedback({ message: "Erro de validação", type: "error" });
+      setFeedback({ message: "Validation Failed", type: "error" });
       console.warn(result.error);
       return;
     }
@@ -124,11 +126,25 @@ export default function AddForms<T extends Record<string, any>>({
             {Object.entries(schema.shape).map(([key]) => (
               <div className="grid gap-3" key={key}>
                 <Label htmlFor={key} className="capitalize">{key}</Label>
-                <Input
-                  id={key}
-                  name={key}
-                  defaultValue=""
-                />
+                {key.toLowerCase().includes("date") ? (
+                  <CalendarInput
+                    label={key}
+                    name={key}
+                    value={formData[key] || ""}
+                    onChange={(val) =>
+                      setFormData((prev) => ({ ...prev, [key]: val }))
+                    }
+                  />
+                ) : (
+                  <Input
+                    id={key}
+                    name={key}
+                    value={formData[key] || ""}
+                    onChange={(e) =>
+                      setFormData((prev) => ({ ...prev, [key]: e.target.value }))
+                    }
+                  />
+                )}
               </div>
             ))}
           </div>

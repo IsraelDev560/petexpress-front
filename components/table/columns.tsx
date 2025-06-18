@@ -65,7 +65,7 @@ export function generateColumns<T extends Record<string, any>>(
 
     const globalColumn: ColumnDef<T> = {
         id: "global",
-        accessorFn: row => row, 
+        accessorFn: row => row,
         filterFn: (row, _columnId, value) => {
             return Object.entries(row.original).some(([key, val]) => {
                 if (["select", "actions"].includes(key)) return false;
@@ -102,7 +102,11 @@ export function generateColumns<T extends Record<string, any>>(
         enableHiding: false,
     }
 
-    if (!data.length) return [];
+    if (!data.length) {
+        return [
+            globalColumn,
+        ];
+    }
 
     return [
         globalColumn,

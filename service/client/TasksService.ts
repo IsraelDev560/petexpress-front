@@ -14,12 +14,12 @@ export async function getTasksClient(): Promise<ApiResponse<Task[]>> {
       data: res.ok ? (data as Task[]) : [],
     };
   } catch (e) {
-    console.error("Erro ao listar tasks:", e);
+    console.error("An error occurred while fetching the task list:", e);
     return {
       success: false,
       status: 500,
       data: {
-        message: "Erro ao listar tasks.",
+        message: "Failed to fetch the task list.",
         status: 500,
         timeStamp: new Date().toISOString(),
       }
@@ -40,12 +40,12 @@ export async function addTasksClient(dataTask: Task): Promise<ApiResponse<Task>>
       data: data as Task,
     };
   } catch (e) {
-    console.error("Erro ao adicionar Task:", e);
+    console.error("An error occurred while adding a task:", e);
     return {
       success: false,
       status: 500,
       data: {
-        message: "Erro ao adicionar Task.",
+        message: "Failed to add task.",
         status: 500,
         timeStamp: new Date().toISOString(),
       }
@@ -66,12 +66,12 @@ export async function updateTaskClient(id: string, item: Task): Promise<ApiRespo
       data: data as Task,
     };
   } catch (e) {
-    console.error("Erro ao atualizar Task:", e);
+    console.error("An error occurred while updating the task:", e);
     return {
       success: false,
       status: 500,
       data: {
-        message: "Erro ao atualizar Task.",
+        message: "Failed to update task.",
         status: 500,
         timeStamp: new Date().toISOString(),
       }
@@ -91,12 +91,12 @@ export async function removeTaskClient(id: string): Promise<ApiResponse<null>> {
       data: null,
     };
   } catch (e) {
-    console.error("Erro ao remover Task:", e);
+    console.error("An error occurred while deleting the task:", e);
     return {
       success: false,
       status: 500,
       data: {
-        message: "Erro ao remover Task.",
+        message: "Failed to delete task.",
         status: 500,
         timeStamp: new Date().toISOString(),
       }
@@ -116,12 +116,12 @@ export async function searchTaskByIdClient(id: string): Promise<ApiResponse<Task
       data: res.ok ? (data as Task) : null,
     };
   } catch (e) {
-    console.error("Erro ao buscar Task por ID:", e);
+    console.error("An error occurred while fetching task by ID:", e);
     return {
       success: false,
       status: 500,
       data: {
-        message: "Erro ao buscar Task por ID.",
+        message: "Failed to fetch task by ID.",
         status: 500,
         timeStamp: new Date().toISOString(),
       }

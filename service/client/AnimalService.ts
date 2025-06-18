@@ -14,12 +14,12 @@ export async function getAnimalsClient(): Promise<ApiResponse<Animal[]>> {
       status: res.status,
     };
   } catch (e) {
-    console.error("Erro ao listar animais:", e);
+    console.error("An error occurred while fetching the list of animals:", e);
     return {
       success: false,
       status: 500,
       data: {
-        message: "Erro ao listar animais.",
+        message: "Failed to fetch the list of animals.",
         status: 500,
         timeStamp: new Date().toISOString(),
       },
@@ -40,12 +40,12 @@ export async function addAnimalsClient(dataAnimal: Animal): Promise<ApiResponse<
       status: res.status,
     };
   } catch (e) {
-    console.error("Erro ao adicionar animal:", e);
+    console.error("An error occurred while adding an animal:", e);
     return {
       success: false,
       status: 500,
       data: {
-        message: "Erro ao adicionar um animal.",
+        message: "Failed to add animal.",
         status: 500,
         timeStamp: new Date().toISOString(),
       },
@@ -66,12 +66,12 @@ export async function updateAnimalClient(id: string, item: Animal): Promise<ApiR
       status: res.status,
     };
   } catch (e) {
-    console.error("Erro ao atualizar animal:", e);
+    console.error("An error occurred while updating the animal:", e);
     return {
       success: false,
       status: 500,
       data: {
-        message: "Erro ao atualizar um animal.",
+        message: "Failed to update animal.",
         status: 500,
         timeStamp: new Date().toISOString(),
       },
@@ -91,13 +91,13 @@ export async function removeAnimalClient(id: string): Promise<ApiResponse<null>>
       status: res.status,
     };
   } catch (e) {
-    console.error("Erro ao remover animal:", e);
+    console.error("An error occurred while deleting the animal:", e);
     return {
       success: false,
       status: 500,
       data: {
         status: 500,
-        message: "Erro ao remover animal.",
+        message: "Failed to delete animal.",
         timeStamp: new Date().toISOString(),
       }
     };
@@ -116,14 +116,14 @@ export async function searchAnimalByIdClient(id: string): Promise<ApiResponse<An
       status: res.status,
     };
   } catch (e) {
-    console.error("Erro ao buscar animal por ID:", e);
+    console.error("An error occurred while fetching animal by ID:", e);
     return {
       success: false,
       status: 500,
       data: {
         status: 500,
         timeStamp: new Date().toISOString(),
-        message: "Erro ao buscar animal por ID.",
+        message: "Failed to fetch animal by ID.",
       },
     };
   }

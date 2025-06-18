@@ -27,7 +27,7 @@ export async function GET(req: Request) {
             status: res.status
         })
     } catch (e: any) {
-        console.log("Ocorreu um erro ao tentar obter todos os task:", e);
+        console.error("An error occurred while trying to fetch all tasks:", e);
         return NextResponse.json({
             success: false,
             message: e

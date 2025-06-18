@@ -4,7 +4,7 @@ export const TaskSchema = z.object({
   taskTypeName: z.string(),
   animalId: z.string(),
   description: z.string(),
-  date: z.date()
+  date: z.string()
 });
 
 export const TaskTypeSchema = z.object({

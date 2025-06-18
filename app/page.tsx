@@ -10,8 +10,8 @@ export default function Home() {
       fetch("/api/wakeup", {
         method: 'POST'
       })
-        .then(() => console.log("🔔 Render acordado"))
-        .catch(() => console.warn("😴 Falha ao acordar API"));
+        .then(() => console.log("Render service activated"))
+        .catch(() => console.warn("Failed to activate the API"));
     }
   }, []);
   return (

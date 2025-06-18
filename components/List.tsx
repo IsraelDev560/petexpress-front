@@ -41,7 +41,7 @@ export default function List<T extends Record<string, any>>({
         setData([]);
       }
     } catch (e) {
-      console.error("Erro ao recarregar:", e);
+      console.error("Erro to reload:", e);
     }
   };
 

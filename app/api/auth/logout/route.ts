@@ -22,7 +22,7 @@ export async function POST(req: Request) {
             status: 200
         })
     } catch (e: any) {
-        console.log("Ocorreu um erro ao fazer logout:", e);
+        console.error("An error occurred while trying to log out:", e);
         return NextResponse.json({
             success: false,
             message: e

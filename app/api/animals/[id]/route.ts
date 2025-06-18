@@ -22,12 +22,12 @@ export async function GET(req: NextRequest, { params }: any) {
 
         return NextResponse.json(data, { status: res.status });
     } catch (e: any) {
-        console.error("Erro ao buscar animal por ID:", e);
+        console.error("An error occurred while fetching animal by ID:", e);
         return NextResponse.json({ success: false, message: e }, { status: 500 });
     }
 }
 
-export async function PATCH(req: NextRequest, { params }: any ) {
+export async function PATCH(req: NextRequest, { params }: any) {
     const token = (await cookies()).get('token')?.value;
     const { id } = await params;
     const body = await req.json();
@@ -45,7 +45,7 @@ export async function PATCH(req: NextRequest, { params }: any ) {
         revalidateTag('animals')
         return NextResponse.json(data, { status: res.status });
     } catch (e: any) {
-        console.error("Erro ao atualizar animal:", e);
+        console.error("An error occurred while updating animal:", e);
         return NextResponse.json({ success: false, message: e }, { status: 500 });
     }
 }
@@ -66,7 +66,7 @@ export async function DELETE(_: NextRequest, { params }: any) {
         revalidateTag('animals')
         return NextResponse.json(data, { status: 200 });
     } catch (e: any) {
-        console.error("Erro ao remover animal:", e);
+        console.error("An error occurred while deleting animal:", e);
         return NextResponse.json({ success: false, message: e }, { status: 500 });
     }
 }

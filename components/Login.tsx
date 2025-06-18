@@ -12,8 +12,18 @@ import { useRouter } from 'next/navigation';
 
 export type LoginFormValues = z.infer<typeof loginSchema>;
 export const loginFields: FieldConfig<LoginFormValues>[] = [
-    { name: 'username', label: 'Username', type: 'text', description: 'Digite seu username' },
-    { name: 'password', label: 'Senha', type: 'password', description: 'Digite sua senha' },
+    {
+        name: 'username',
+        label: 'Username',
+        type: 'text',
+        description: 'Enter your username'
+    },
+    {
+        name: 'password',
+        label: 'Password',
+        type: 'password',
+        description: 'Enter your password'
+    },
 ];
 
 export function Login() {
@@ -38,35 +48,35 @@ export function Login() {
 
             if (!res.ok) {
                 setFeedback({
-                    message: data.message || "Erro ao fazer login",
-                    type: 'error'
+                    message: data.message || "Login failed. Please check your credentials.",
+                    type: 'error',
                 });
                 return;
             }
 
             setFeedback({
-                message: "Login realizado com sucesso!",
-                type: 'success'
+                message: "Login successful!",
+                type: 'success',
             });
             router.push('/petexpress')
         } catch (e: any) {
             const safeMessage =
                 typeof e?.message === 'string'
                     ? e.message
-                    : 'Erro inesperado. Tente novamente mais tarde.';
+                    : 'Unexpected error. Please try again later.';
 
             setFeedback({
                 message: safeMessage,
                 type: 'error',
             });
-            console.log("Erro no login:", e);
+            console.log("Login error:", e);
         } finally {
             setLoading(false);
         }
     }
     return (
         <FormComponent
-            title='Faça login'
+            title="Login to your account"
             onSubmit={onSubmit}
             form={form}
             fields={loginFields}

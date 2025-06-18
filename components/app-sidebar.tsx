@@ -1,6 +1,6 @@
 'use client'
 
-import { Calendar, Home, LogOut, ShieldCheck, UserCircle2, Table, icons  } from "lucide-react"
+import { Calendar, Home, LogOut, ShieldCheck, UserCircle2, Table, icons } from "lucide-react"
 
 
 import {
@@ -14,11 +14,12 @@ import {
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import Link from "next/link"
-import { logout } from "@/service/client/AuthService"
 import { ModeToggle } from "./theme-button"
 import { User } from "@/types/User"
 import { useEffect } from "react"
 import { useUser } from "@/context/UserContext"
+import { apiClient } from "@/lib/apiClient"
+import { useRouter } from "next/navigation"
 
 const items = [
     {
@@ -37,10 +38,30 @@ export function AppSidebar({
     user
 }: { user: User }) {
     const { setUser } = useUser();
+    const router = useRouter();
 
     useEffect(() => {
         setUser(user);
     }, [user, setUser]);
+
+    async function logout() {
+        try {
+            const { res } = await apiClient('/api/auth/logout', {
+                method: 'POST'
+            })
+            if (!res.ok) {
+                return {
+                    success: false,
+                    status: res.status
+                }
+            }
+            router.push('/')
+            return { success: true }
+        } catch (e: any) {
+            console.log(e);
+        }
+    }
+
     return (
         <Sidebar>
             <SidebarContent>
